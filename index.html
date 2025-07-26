@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loreline - Your Personal Book Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Loreline</h1>
+        <p>Track your reading journey</p>
+    </header>
+
+    <div class="main-container">
+        <div class="shelves-list" id="shelvesList">
+            <!-- Shelves will be added here dynamically -->
+        </div>
+
+        <div class="content-area">
+            <div class="controls">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search books...">
+                </div>
+                <button id="addBookBtn" class="btn">Add Book</button>
+                <button id="addShelfBtn" class="btn">Add Shelf</button>
+            </div>
+
+            <div class="books-display" id="booksDisplay">
+                <!-- Books will be shown here based on selected shelf -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Book Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Book</h2>
+            <form id="bookForm">
+                <div class="form-group">
+                    <label for="bookTitle">Book Title</label>
+                    <input type="text" id="bookTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookAuthor">Author</label>
+                    <input type="text" id="bookAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookPages">Total Pages</label>
+                    <input type="number" id="bookPages" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookShelf">Shelf</label>
+                    <select id="bookShelf" required>
+                        <!-- Options will be added dynamically -->
+                    </select>
+                </div>
+                <button type="submit" class="btn">Add Book</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Book Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="detailTitle"></h2>
+            <div class="book-details">
+                <p><strong>Author:</strong> <span id="detailAuthor"></span></p>
+                <p><strong>Pages:</strong> <span id="detailPages"></span></p>
+                <p><strong>Current Shelf:</strong> <span id="detailShelf"></span></p>
+                <p><strong>Started Reading:</strong> <span id="detailStartDate"></span></p>
+                <p><strong>Finished Reading:</strong> <span id="detailEndDate"></span></p>
+                
+                <!-- Current page progress (only shown for Reading shelf) -->
+                <div id="currentPageContainer" class="form-group" style="display: none;">
+                    <label for="currentPage">Current Page</label>
+                    <input type="number" id="currentPage" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label>Move to Shelf:</label>
+                    <select id="moveShelfSelect">
+                        <!-- Options will be added dynamically -->
+                    </select>
+                </div>
+                
+                <div class="rating-section">
+                    <h3>Your Rating</h3>
+                    <div class="stars">
+                        <span class="star" data-value="1">☆</span>
+                        <span class="star" data-value="2">☆</span>
+                        <span class="star" data-value="3">☆</span>
+                        <span class="star" data-value="4">☆</span>
+                        <span class="star" data-value="5">☆</span>
+                        <span id="ratingEmoji"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bookOpinion">Your Opinion</label>
+                    <textarea id="bookOpinion" rows="5"></textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="saveDetailsBtn" class="btn">Save</button>
+                    <button id="deleteBookBtn" class="btn delete-btn">Delete Book</button>
+                </div>
+                <div id="saveMessage" class="save-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Shelf Modal -->
+    <div id="shelfModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Shelf</h2>
+            <form id="shelfForm">
+                <div class="form-group">
+                    <label for="newShelfName">Shelf Name</label>
+                    <input type="text" id="newShelfName" required>
+                </div>
+                <button type="submit" class="btn">Add Shelf</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
