@@ -1,0 +1,351 @@
+:root {
+    --shelf-bg: #f5e8c9;
+    --shelf-border: #8b6b3d;
+    --book-spine: #4a3520;
+    --book-spine-text: #f8f3e6;
+    --book-cover: #d9c7a7;
+    --book-shadow: rgba(0, 0, 0, 0.3);
+    --primary: #6d4c41;
+    --secondary: #8d6e63;
+    --accent: #d7ccc8;
+    --modal-bg: rgba(0, 0, 0, 0.7);
+    --shelf-list-width: 20%;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f9f5f0;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 5px var(--book-shadow);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+.main-container {
+    display: flex;
+    height: calc(100vh - 100px);
+}
+
+.shelves-list {
+    width: var(--shelf-list-width);
+    background-color: var(--accent);
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid var(--secondary);
+}
+
+.shelf-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.shelf-item:hover {
+    background-color: #f0e6d2;
+}
+
+.shelf-item.active {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.shelf-item .delete-shelf {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: none;
+}
+
+.shelf-item:hover .delete-shelf {
+    display: block;
+}
+
+.shelf-item.active .delete-shelf {
+    display: none;
+}
+
+.content-area {
+    width: calc(100% - var(--shelf-list-width));
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-bar {
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--secondary);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--primary);
+}
+
+.delete-btn {
+    background-color: #d32f2f;
+}
+
+.delete-btn:hover {
+    background-color: #b71c1c;
+}
+
+.books-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-height: calc(100% - 70px);
+}
+
+.book {
+    width: 70px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+    perspective: 1000px;
+}
+
+.book:hover {
+    transform: translateY(-5px);
+}
+
+.book-spine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--book-spine);
+    transform: rotateY(0deg);
+    transform-origin: left;
+    transition: transform 0.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px var(--book-shadow);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.book-title, .book-author {
+    color: var(--book-spine-text);
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 2px;
+    transform: rotate(180deg);
+}
+
+.book-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.book-author {
+    font-size: 0.7rem;
+    margin-top: 5px;
+}
+.book-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--book-cover);
+    transform: rotateY(90deg);
+    transform-origin: left;
+    transition: transform 0.5s;
+    display: none;
+}
+
+.book:hover .book-cover {
+    display: block;
+    transform: rotateY(0deg);
+}
+
+.empty-shelf {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--modal-bg);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.book-details p {
+    margin-bottom: 10px;
+}
+
+.rating-section {
+    margin: 20px 0;
+}
+
+.stars {
+    font-size: 30px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.star {
+    color: #ccc;
+    transition: color 0.2s;
+}
+
+.star:hover, .star.active {
+    color: #ffc107;
+}
+
+#ratingEmoji {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save-message {
+    margin-top: 10px;
+    color: green;
+    font-size: 14px;
+    height: 20px;
+}
+
+.progress-container {
+    margin: 15px 0;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--secondary);
+    transition: width 0.3s;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 14px;
+}
